@@ -33,8 +33,8 @@ class ToDoTableViewCell: UITableViewCell {
     }
     
     @IBAction func buttonClicked(_ sender: Any) {
-        isCompleted.toggle()
-        updateButtonState()
+        /*isCompleted.toggle()
+        updateButtonState()*/
     }
     
     func updateButtonState() {

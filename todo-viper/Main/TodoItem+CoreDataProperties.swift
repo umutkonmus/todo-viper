@@ -20,3 +20,4 @@ extension TodoItem {
     @NSManaged public var isCompleted: Bool
     @NSManaged public var id: UUID?
 }
+

@@ -13,7 +13,7 @@ class CoreDataManager {
     let persistentContainer: NSPersistentContainer
 
     private init() {
-        persistentContainer = NSPersistentContainer(name: "todo_mvvm2")
+        persistentContainer = NSPersistentContainer(name: "todo_viper")
         persistentContainer.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Error while loading CoreData: \(error)")

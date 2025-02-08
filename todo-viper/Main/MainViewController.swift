@@ -33,7 +33,7 @@ protocol AnyView{
     func update(with: [TodoItem])
 }
 
-class MainView: UIViewController, AnyView {
+class MainViewController: UIViewController, AnyView {
     var presenter: (any AnyPresenter)?
     
     @IBOutlet weak var tableView: UITableView!
@@ -76,7 +76,7 @@ class MainView: UIViewController, AnyView {
 }
 
 //MARK: TableView Delegate and DataSource
-extension MainView: UITableViewDelegate, UITableViewDataSource{
+extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.getTodoCount() ?? 0
     }
@@ -98,7 +98,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource{
 }
 
 //MARK: TableView Delete
-extension MainView {
+extension MainViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { _, _, completionHandler in
             self.presenter?.deleteTodo(at: indexPath.row)
