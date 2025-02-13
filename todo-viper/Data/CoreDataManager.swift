@@ -33,14 +33,9 @@ class CoreDataManager {
         save()
     }
 
-    func fetchTodos() -> [TodoItem] {
+    func fetchTodos() throws -> [TodoItem] {
         let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
-        do {
-            return try context.fetch(request)
-        } catch {
-            print("Error while fetching data: \(error)")
-            return []
-        }
+        return try context.fetch(request)
     }
 
     func deleteTodo(todo: TodoItem) {

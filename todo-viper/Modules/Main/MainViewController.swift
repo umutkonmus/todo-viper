@@ -27,50 +27,45 @@
 
 import UIKit
 
-protocol AnyView{
-    var presenter: AnyPresenter? { get set }
-    
-    func update(with: [TodoItem])
+protocol ViewInterface : AnyObject, Storyboarded {
+    func prepareUI()
 }
 
-class MainViewController: UIViewController, AnyView {
-    var presenter: (any AnyPresenter)?
+protocol TodoViewInterface: ViewInterface {
+    func reloadData()
+}
+
+final class MainViewController: UIViewController, TodoViewInterface {
+    
+    static var storyboardName: StoryboardNames {
+        .main
+    }
+    
+    var presenter: TodoPresenterInterface!
     
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        presenter.viewDidLoad()
+    }
+    
+    func reloadData() {
+        self.tableView.reloadData()
+    }
+    
+    func prepareUI(){
         tableView.register(UINib(nibName: ToDoTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ToDoTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        setupNavigation()
-    }
-    
-    func update(with: [TodoItem]) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    func setupNavigation(){
+        
         navigationItem.title = "Todo List Viper"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTodo))
     }
     
     @objc func addTodo(){
-        let alert = UIAlertController(title: "New Task", message: "Give a name", preferredStyle: .alert)
-        alert.addTextField()
-        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
-            if let title = alert.textFields?.first?.text, !title.isEmpty {
-                self.presenter?.saveTodo(title: title)
-            }
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        alert.addAction(addAction)
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true)
+        presenter.addTodoButtonTapped()
     }
 
 }
@@ -78,30 +73,33 @@ class MainViewController: UIViewController, AnyView {
 //MARK: TableView Delegate and DataSource
 extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.getTodoCount() ?? 0
+        return presenter.numberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoTableViewCell.identifier) as? ToDoTableViewCell else {
             return UITableViewCell()
         }
-        cell.label.text = presenter?.getTodoTitle(at: indexPath.row)
-        cell.isCompleted = presenter?.getTodoIsCompleted(at: indexPath.row)
+        guard let cellData = presenter.cellData(at: indexPath) else { return UITableViewCell() }
+        
+        cell.label.text = cellData.title
+        cell.isCompleted = cellData.isCompleted
         cell.selectionStyle = .none
         cell.updateButtonState()
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.toggleTodo(at: indexPath.row)
+        presenter.didSelectRow(at: indexPath)
     }
 }
 
 //MARK: TableView Delete
 extension MainViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { _, _, completionHandler in
-            self.presenter?.deleteTodo(at: indexPath.row)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            self.presenter.didTrailingSwipeAction(at: indexPath)
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
