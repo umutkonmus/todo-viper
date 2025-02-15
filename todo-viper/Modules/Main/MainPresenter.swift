@@ -7,32 +7,12 @@
 
 import Foundation
 
-
-protocol PresenterInterface{
-    func viewDidLoad()
-    func viewWillAppear()
-    func viewDidAppear()
-    func viewWillDisappear()
-    func viewDidDisappear()
-    func viewWillEnterForeground()
-    func viewDidLayoutSubviews()
-}
-
-extension PresenterInterface {
-    func viewDidLoad() {}
-    func viewWillAppear() {}
-    func viewDidAppear() {}
-    func viewWillDisappear() {}
-    func viewDidDisappear() {}
-    func viewWillEnterForeground() {}
-    func viewDidLayoutSubviews() {}
-}
-
 protocol TodoPresenterInterface : PresenterInterface {
     var numberOfRowsInSection: Int { get }
     func cellData(at indexPath: IndexPath) -> TodoItem?
     func didSelectRow(at indexPath: IndexPath)
     func didTrailingSwipeAction(at indexPath: IndexPath)
+    func didLeadingSwipeAction(at indexPath: IndexPath)
     func addTodoButtonTapped()
 }
 
@@ -80,6 +60,12 @@ extension TodoPresenter: TodoPresenterInterface {
         guard indexPath.row < todos.count else { return }
         let todoItem = todos[indexPath.row]
         interactor?.deleteTodo(todo: todoItem)
+    }
+    
+    func didLeadingSwipeAction(at indexPath: IndexPath) {
+        guard indexPath.row < todos.count else { return }
+        let todoItem = todos[indexPath.row]
+        router.navigateToEdit(todoItem: todoItem)
     }
     
 }

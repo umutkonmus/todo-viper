@@ -8,10 +8,6 @@
 import Foundation
 import UIKit
 
-protocol RouterInterface {
-    var navigationController : UINavigationController? { get }
-}
-
 protocol TodoRouterInterface: RouterInterface {
     func showNewTodoAlert()
 }
@@ -43,9 +39,9 @@ final class TodoRouter : TodoRouterInterface {
     
     static func createModule() -> UINavigationController {
         
-        var view = MainViewController.instantiate()
-        var presenter =  TodoPresenter()
-        var interactor = TodoInteractor()
+        let view = MainViewController.instantiate()
+        let presenter =  TodoPresenter()
+        let interactor = TodoInteractor()
         
         let navigationController = UINavigationController(rootViewController: view)
         
@@ -63,4 +59,8 @@ final class TodoRouter : TodoRouterInterface {
         return navigationController
     }
     
+    func navigateToEdit(todoItem: TodoItem) {
+        let editVC = EditRouter.createModule(navigationController: self.navigationController!)
+        self.navigationController?.pushViewController(editVC, animated: true)
+    }
 }

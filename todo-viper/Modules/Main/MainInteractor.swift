@@ -11,9 +11,6 @@ protocol TodoInteractorInterface {
     func fetchTodos()
     func saveTodo(title: String)
     func deleteTodo(todo: TodoItem)
-    //func getTodoTitle(at index: Int) -> String
-    //func getTodoIsCompleted(at index: Int) -> Bool
-    //func getTodoCount() -> Int
     func updateTodo(todo: TodoItem)
 }
 

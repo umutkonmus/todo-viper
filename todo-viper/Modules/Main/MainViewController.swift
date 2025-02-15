@@ -27,10 +27,6 @@
 
 import UIKit
 
-protocol ViewInterface : AnyObject, Storyboarded {
-    func prepareUI()
-}
-
 protocol TodoViewInterface: ViewInterface {
     func reloadData()
 }
@@ -104,5 +100,17 @@ extension MainViewController {
         }
         deleteAction.image = UIImage(systemName: "trash")
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+//MARK: TableView Update
+extension MainViewController {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let updateAction = UIContextualAction(style: .normal, title: "Update") { _, _, completionHandler in
+            self.presenter.didLeadingSwipeAction(at: indexPath)
+            completionHandler(true)
+        }
+        updateAction.image = UIImage(systemName: "pencil")
+        return UISwipeActionsConfiguration(actions: [updateAction])
     }
 }
