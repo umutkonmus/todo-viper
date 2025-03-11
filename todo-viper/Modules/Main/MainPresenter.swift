@@ -36,6 +36,11 @@ extension TodoPresenter: TodoPresenterInterface {
         view?.prepareUI()
     }
     
+    func viewWillAppear() {
+        interactor?.fetchTodos()
+        view?.prepareUI()
+    }
+    
     var numberOfRowsInSection: Int {
         return todos.count
     }

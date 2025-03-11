@@ -16,20 +16,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit VC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Sn-cU-E3V">
-                                <rect key="frame" x="168.66666666666666" y="415.66666666666669" width="56" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="usE-pu-wFJ">
+                                <rect key="frame" x="16" y="88.999999999999986" width="361" height="134.66666666666663"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OOu-dt-GPI">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfq-fQ-JIz">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="34.333333333333343"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Completed :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eG8-V0-vyL">
+                                                <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="34.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMo-vT-1Kz">
+                                                <rect key="frame" x="109.66666666666667" y="0.0" width="251.33333333333331" height="34.333333333333336"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="isCompletedButtonClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3WF-j7-r4K"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5p2-Vd-SK3">
+                                        <rect key="frame" x="0.0" y="100.33333333333334" width="361" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                        <connections>
+                                            <action selector="saveButtonClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9CF-DR-C53"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="OOu-dt-GPI" secondAttribute="trailing" id="A3v-mg-80S"/>
+                                    <constraint firstItem="OOu-dt-GPI" firstAttribute="leading" secondItem="usE-pu-wFJ" secondAttribute="leading" id="aZC-it-8e0"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Sn-cU-E3V" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="ZwX-cp-2wy"/>
-                            <constraint firstItem="6Sn-cU-E3V" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="gRj-JV-diP"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="usE-pu-wFJ" secondAttribute="trailing" constant="16" id="2z3-jC-5L3"/>
+                            <constraint firstItem="usE-pu-wFJ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="9SY-mx-QWC"/>
+                            <constraint firstItem="usE-pu-wFJ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="TWu-vm-WVg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="isCompletedButton" destination="tMo-vT-1Kz" id="QCj-lt-nGT"/>
+                        <outlet property="saveButton" destination="5p2-Vd-SK3" id="zS8-cG-9Lp"/>
+                        <outlet property="titleTextField" destination="OOu-dt-GPI" id="hUz-JK-1py"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -37,6 +78,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -19,7 +19,7 @@ final class EditRouter : EditRouterInterface {
         self.navigationController = navigationController
     }
     
-    static func createModule(navigationController: UINavigationController) -> UIViewController {
+    static func createModule(navigationController: UINavigationController, todoItem: TodoItem) -> UIViewController {
         let view = EditViewController.instantiate()
         let presenter = EditPresenter()
         let interactor = EditInteractor()
@@ -31,6 +31,7 @@ final class EditRouter : EditRouterInterface {
         presenter.view = view
         presenter.interactor = interactor
         presenter.router = router
+        presenter.todoItem = todoItem
         
         view.presenter = presenter
         
@@ -38,5 +39,21 @@ final class EditRouter : EditRouterInterface {
         interactor.output = presenter
         
         return view
+    }
+    
+    func showSavedAlert(todoItem: TodoItem) {
+        guard let title = todoItem.title else {return}
+        let alert = UIAlertController(title: "Saved", message: "\(title) Saved Successfully", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+                self.navigateToBack()
+            }
+        
+        alert.addAction(okAction)
+
+        self.navigationController?.present(alert, animated: true)
+    }
+    
+    func navigateToBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

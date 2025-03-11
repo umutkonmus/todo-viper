@@ -42,6 +42,12 @@ class CoreDataManager {
         context.delete(todo)
         save()
     }
+    
+    func editTodo(todo: TodoItem, newTitle: String, isCompleted: Bool) {
+        todo.title = newTitle
+        todo.isCompleted = isCompleted
+        save()
+    }
 
     func save() {
         do {

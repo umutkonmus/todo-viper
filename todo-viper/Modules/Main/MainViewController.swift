@@ -47,6 +47,10 @@ final class MainViewController: UIViewController, TodoViewInterface, Storyboarde
         presenter.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewWillAppear()
+    }
+    
     func reloadData() {
         self.tableView.reloadData()
     }

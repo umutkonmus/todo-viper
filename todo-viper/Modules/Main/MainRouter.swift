@@ -61,7 +61,7 @@ final class TodoRouter : TodoRouterInterface {
     }
     
     func navigateToEdit(todoItem: TodoItem) {
-        let editVC = EditRouter.createModule(navigationController: self.navigationController!)
+        let editVC = EditRouter.createModule(navigationController: self.navigationController!, todoItem: todoItem)
         self.navigationController?.pushViewController(editVC, animated: true)
     }
 }
