@@ -27,7 +27,7 @@ extension PresenterInterface {
     func viewDidLayoutSubviews() {}
 }
 
-protocol ViewInterface : AnyObject, Storyboarded {
+protocol ViewInterface : AnyObject {
     func prepareUI()
 }
 

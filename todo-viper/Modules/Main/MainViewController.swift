@@ -31,7 +31,7 @@ protocol TodoViewInterface: ViewInterface {
     func reloadData()
 }
 
-final class MainViewController: UIViewController, TodoViewInterface {
+final class MainViewController: UIViewController, TodoViewInterface, Storyboarded {
     
     static var storyboardName: StoryboardNames {
         .main

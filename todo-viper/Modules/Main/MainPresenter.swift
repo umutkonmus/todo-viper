@@ -20,7 +20,7 @@ final class TodoPresenter {
     
     private var todos : [TodoItem] = []
     
-    var router: TodoRouter!
+    var router: TodoRouterInterface!
     var interactor: TodoInteractorInterface!
     weak var view: TodoViewInterface?
     

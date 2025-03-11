@@ -11,7 +11,7 @@ protocol EditViewControllerInterface: ViewInterface {
     
 }
 
-final class EditViewController: UIViewController, EditViewControllerInterface {
+final class EditViewController: UIViewController, EditViewControllerInterface, Storyboarded {
     
     static var storyboardName: StoryboardNames {
         .edit

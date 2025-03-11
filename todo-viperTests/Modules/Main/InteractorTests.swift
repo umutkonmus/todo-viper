@@ -7,6 +7,7 @@
 
 import Testing
 @testable import todo_viper
+
 class MockPresenter: TodoInteractorOutput {
     var interactor: TodoInteractor!
     var receivedTodos: [TodoItem]?
@@ -23,6 +24,7 @@ class MockPresenter: TodoInteractorOutput {
 }
 
 struct InteractorTests {
+    
     let interactor: TodoInteractor!
     let mockPresenter: MockPresenter!
     

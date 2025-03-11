@@ -10,6 +10,7 @@ import UIKit
 
 protocol TodoRouterInterface: RouterInterface {
     func showNewTodoAlert()
+    func navigateToEdit(todoItem: TodoItem)
 }
 
 final class TodoRouter : TodoRouterInterface {
