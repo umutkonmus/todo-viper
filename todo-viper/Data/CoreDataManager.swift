@@ -10,7 +10,7 @@ import CoreData
 class CoreDataManager {
     static let shared = CoreDataManager()
 
-    let persistentContainer: NSPersistentContainer
+    var persistentContainer: NSPersistentContainer
 
     private init() {
         persistentContainer = NSPersistentContainer(name: "todo_viper")
